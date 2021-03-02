@@ -1,0 +1,92 @@
+<h2 class="container">SpaceX Launch Programs</h2>
+<div class="container">
+  <div class="card left-container">
+    <h4 class="filter-text">Filters</h4>
+    <p style="text-align: center; margin: 0">Launch Year</p>
+    <hr class="horizontal-line" />
+    <div class="left-flex-container">
+      <div
+        *ngFor="let year of uniqueLaunchYear; let i = index"
+        class="launch-year"
+      >
+        <div (click)="filterYear(year)" class="year-btn">
+          <button class="background-green" tabindex="{{ i + 1 }}">
+            {{ year }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <p class="successful-launch">
+      <b>Successful Launch</b>
+    </p>
+    <hr class="horizontal-line" />
+    <br />
+    <div class="launch-land-button">
+      <span
+        class="background-green"
+        (click)="filterLaunch($event)"
+        value="true"
+        tabindex="1"
+        >True</span
+      >
+      <span class="background-green" (click)="filterLaunch($event)" tabindex="2"
+        >False</span
+      >
+    </div>
+    <p class="successful-launch">
+      <b>Successful Landing</b>
+    </p>
+    <hr class="horizontal-line" />
+    <br />
+    <div class="launch-land-button">
+      <span class="background-green" (click)="filter_land($event)" tabindex="1"
+        >True</span
+      >
+      <span class="background-green" (click)="filter_land($event)" tabindex="2"
+        >False</span
+      >
+    </div>
+  </div>
+
+  <div class="right-container">
+    <div *ngFor="let launch of launches" class="launch-card">
+      <div class="launch-card-padding">
+        <div class="img-container">
+          <img
+            src="{{ launch.links.mission_patch_small }}"
+            alt="launch images"
+            class="image"
+          />
+        </div>
+
+        <h4 class="mission-name">
+          {{ launch.mission_name }} # {{ launch.flight_number }}
+        </h4>
+        <h4>
+         <b>Mission_ID:</b> 
+          <ul>
+            <li class="launch">{{ launch.mission_id }}</li>
+          </ul>
+        </h4>
+        <h4>
+         <b>Launch Year:</b> 
+          <span class="launch">{{ launch.launch_year }}</span>
+        </h4>
+        <h4>
+          <b>Successful Launch:</b>
+          <span class="launch">{{ launch.launch_success }}</span>
+        </h4>
+        <h4>
+         <b>Successful Landing:</b> <span class="launch">{{
+            launch.rocket.first_stage.cores[0].land_success
+          }}</span>
+        </h4>
+      </div>
+    </div>
+    <h1 *ngIf="launchesCount == 0" class="shift-letter">
+     Empty Record
+    </h1>
+  </div>
+</div>
+<div class="footer-line"><b>Developed By:</b>Nikita Garg</div>
