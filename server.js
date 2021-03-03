@@ -13,7 +13,7 @@ const app = express();
 
 app.use(requireHTTPS);
 // Serve only the static files form the dist directory
-app.use(express.static('./dist/spaceX'));
+app.use(express.static('./dist/spaceX/browser'));
 
 app.get('/*', (req, res) => 
      //   res.sendFile(root: '/dist/space-x/index.html'));
