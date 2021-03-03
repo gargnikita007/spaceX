@@ -11,6 +11,7 @@ const path = require('path');
 
 const app = express();
 
+app.use(requireHTTPS);
 // Serve only the static files form the dist directory
 app.use(express.static('./dist/space-x'));
 
