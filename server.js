@@ -17,7 +17,7 @@ app.use(express.static('./dist/spaceX'));
 
 app.get('/*', (req, res) => 
      //   res.sendFile(root: '/dist/space-x/index.html'));
-   res.sendFile('index.html', {root: 'dist/spaceX/'}),
+   res.sendFile('index.html', {root: 'dist/spaceX/browser'}),
   
 );
 
