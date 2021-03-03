@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run ng lint command to check code quality of angular project.
 
-Added Acessibility for better readability for visually impaired persons.
+Added acessibility for better readability for visually impaired persons.
 
 Used Server-side rendering (SSR) with Angular Universal with npm run dev:ssr
 
