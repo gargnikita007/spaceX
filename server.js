@@ -15,7 +15,7 @@ app.use(requireHTTPS);
 // Serve only the static files form the dist directory
 
 app.use(express.static('./dist/spaceX/browser'));
-
+//get method
 app.get('/*', (req, res) => 
   
    res.sendFile('index.html', {root: 'dist/spaceX/browser'}),
