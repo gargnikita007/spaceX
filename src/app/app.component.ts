@@ -18,7 +18,11 @@ export class AppComponent implements OnInit {
   launchesCount = 0;
   launchStatus: string = "";
   landstatus: string = "";
-  year: string = "";
+  year: any = "";
+  clickFilterYear: string = "";
+  ClickFilterLand: string = "";
+  clickFilterLaunch: string ="" ;
+ // clickFilterLaunchFalse: boolean= false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -42,16 +46,15 @@ export class AppComponent implements OnInit {
 
   getMethod() {
     this.spacesXService.getAllLaunches().subscribe((data) => {
+      console.log("inside get method", data);
       this.launches = data;
       this.launchesCount = data.length;
-
       for (let i = 0; i < this.launches.length; i++) {
         this.launchYear[i] = this.launches[i].launch_year;
       }
       this.launchYear.sort((a: any, b: any) => {
         return a - b;
       });
-
       for (let i = 0, j = 1; i < this.launchYear.length; i++, j++) {
         if (this.launchYear[i] != this.launchYear[j]) {
           this.uniqueLaunchYear[this.index] = this.launchYear[i];
@@ -62,7 +65,24 @@ export class AppComponent implements OnInit {
   }
 
   filterLaunch(event: any) {
+    const filterLaunchValue= event.target.name;
+   if(filterLaunchValue === "true"){
+   this.clickFilterLaunch = "trueClicked";
+   }else{
+    this.clickFilterLaunch = "falseClicked";
+   }
+    if (this.landstatus != "" ||this.year == "") {
+      console.log("year is present");
+    }else if( this.landstatus == "" ||this.year != ""){
+        console.log("landStatus is present");
+    } else if(this.landstatus == "" ||this.year == ""){
+        console.log("launch status is present");
+    }  else if(this.landstatus != "" ||this.year != ""){
+      console.log("launch status is present");
+  }   
+   
     this.launchStatus = event.target.textContent.toLowerCase();
+    console.log("launch status inside :",this.launchStatus );
     this.router.navigate([""], {
       queryParams: { limit: 100, launch_status: this.launchStatus },
     });
@@ -73,8 +93,14 @@ export class AppComponent implements OnInit {
   }
 
   filter_land(event: any) {
+    const filterLandValue= event.target.name;
+     if(filterLandValue === "true"){
+      this.ClickFilterLand = "trueClicked";
+      }else{
+      this.ClickFilterLand = "falseClicked";
+      }
     this.landstatus = event.target.textContent.toLowerCase();
-
+    console.log("filter land filter_land", this.landstatus);
     if (this.launchStatus != "" && this.landstatus != "" && this.year == "") {
       this.spacesXService
         .getLaunchLand(this.launchStatus, this.landstatus)
@@ -121,6 +147,15 @@ export class AppComponent implements OnInit {
   }
   //to get the data acording to the filter chosen
   filterYear(year: any) {
+    if (this.launchStatus != "" || this.landstatus != "" ) {
+      console.log("year is present");
+    }else if(this.launchStatus == "" || this.landstatus != "" ){
+        console.log("landStatus is present");
+    } else if(this.launchStatus != "" || this.landstatus == "" ){
+        console.log("launch status is present");
+    }else if(this.launchStatus == "" || this.landstatus == "" ){
+    }
+    this.clickFilterYear=year;
     this.year = year;
     this.router.navigate([""], {
       queryParams: { limit: 100, year: this.year },

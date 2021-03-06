@@ -2,15 +2,15 @@
 <div class="container">
   <div class="card left-container">
     <h4 class="filter-text">Filters</h4>
-    <p style="text-align: center; margin: 0">Launch Year</p>
+    <p class="launch-year">Launch Year</p>
     <hr class="horizontal-line" />
     <div class="left-flex-container">
-      <div
-        *ngFor="let year of uniqueLaunchYear; let i = index"
+      <div tabindex="0"
+        *ngFor="let year of uniqueLaunchYear; let i=index"
         class="launch-year"
       >
-        <div (click)="filterYear(year)" class="year-btn">
-          <button class="background-green" tabindex="{{ i + 1 }}">
+        <div>
+          <button (click)="filterYear(year)"  [ngClass]="clickFilterYear===year?'background-green-focus':'background-green'" tabindex="0">
             {{ year }}
           </button>
         </div>
@@ -23,16 +23,17 @@
     <hr class="horizontal-line" />
     <br />
     <div class="launch-land-button">
-      <span
-        class="background-green"
+      <button 
+      [ngClass]="clickFilterLaunch ==='trueClicked'?'background-green-launch':'background-green'"  
         (click)="filterLaunch($event)"
         value="true"
-        tabindex="1"
-        >True</span
-      >
-      <span class="background-green" (click)="filterLaunch($event)" tabindex="2"
-        >False</span
-      >
+        name="true"
+        tabindex="0"
+        >True</button>
+      <button  [ngClass]="clickFilterLaunch ==='falseClicked'?'background-green-launch':'background-green'" 
+       (click)="filterLaunch($event)" tabindex="0"
+         name = "false"
+        >False</button>
     </div>
     <p class="successful-launch">
       <b>Successful Landing</b>
@@ -40,18 +41,16 @@
     <hr class="horizontal-line" />
     <br />
     <div class="launch-land-button">
-      <span class="background-green" (click)="filter_land($event)" tabindex="1"
-        >True</span
-      >
-      <span class="background-green" (click)="filter_land($event)" tabindex="2"
-        >False</span
-      >
+      <button [ngClass]="ClickFilterLand === 'trueClicked' ?'background-green-land':'background-green'" name="true" (click)="filter_land($event)" tabindex="0"
+        >True</button>
+      <button [ngClass]="ClickFilterLand === 'falseClicked' ?'background-green-land':'background-green'" name="false"  (click)="filter_land($event)" tabindex="0"
+        >False</button>
     </div>
   </div>
 
-  <div class="right-container">
-    <div *ngFor="let launch of launches" class="launch-card">
-      <div class="launch-card-padding">
+  <div class="right-container" tabindex="0">
+    <div *ngFor="let launch of launches" class="launch-card" tabindex="0">
+      <div class="launch-card-padding" tabindex="0">
         <div class="img-container">
           <img
             src="{{ launch.links.mission_patch_small }}"
