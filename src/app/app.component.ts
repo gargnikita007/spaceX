@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   landstatus: string = "";
   year: any = "";
   clickFilterYear: string = "";
-  ClickFilterLand: string = "";
+  clickFilterLand: string = "";
   clickFilterLaunch: string ="" ;
   queryFilters= {
     land_success: "",
@@ -69,101 +69,38 @@ export class AppComponent implements OnInit {
   }
 
   filterLaunch(event: any) {
-  const filterLaunchValue= event.target.name;
-   if(filterLaunchValue === "true"){
-   this.clickFilterLaunch = "trueClicked";
-   }else{
-    this.clickFilterLaunch = "falseClicked";
-   }
-   this.launchStatus = event.target.textContent.toLowerCase();
-    // if (this.landstatus != "" && this.year == "") {
-    //       this.checkLaunchLandStatus();
-    // }else if( this.landstatus == "" && this.year != ""){
-    //     this.getYearAndLaunchStatusData();
-    // }else if(this.landstatus != "" && this.year != ""){
-    //         this.getAllDataTogether();
-    // }else if(this.landstatus == "" && this.year == ""){
-    //     this.router.navigate([""], {
-    //   queryParams: { limit: 100, launch_status: this.launchStatus },
-    // });
-    // this.spacesXService.getLaunches(this.launchStatus).subscribe((data) => {
-    //   this.launches = data;
-    //   this.launchesCount = data.length;
-    // });
-
+    this.launchStatus = event.target.textContent.toLowerCase();
+    this.clickFilterLaunch = this.launchStatus;
     this.prepareQueryFilter();
-    this.getFilterData();  
-  
+    this.getFilterData(); 
   }
 
   filter_land(event: any) {
-    const filterLandValue= event.target.name;
-     if(filterLandValue === "true"){
-      this.ClickFilterLand = "trueClicked";
-      }else{
-      this.ClickFilterLand = "falseClicked";
-      }
     this.landstatus = event.target.textContent.toLowerCase();
-    //   if (this.launchStatus != "" && this.year == "") {
-    //   this.checkLaunchLandStatus();
-    // } else if (this.launchStatus != "" && this.year != "") {
-    //   this.getAllDataTogether();
-    // }else if (this.launchStatus == "" && this.year != "") {
-    //   this.getYearAndLandStatusData();
-    // } else if(this.launchStatus =="" && this.year ==""){
-    //   this.spacesXService
-    //     .getLaunches_Land(this.landstatus)
-    //     .subscribe((data) => {5
-    //       this.launches = data;
-    //       this.launchesCount = data.length;
-    //       return;
-    //     });
+    this.clickFilterLand= this.landstatus;
     this.prepareQueryFilter();
     this.getFilterData();  
-    
   }
 
   //To get the data acording to the filter chosen
   filterYear(year: any) {
     this.clickFilterYear=year;
     this.year = year;
-    // if (this.launchStatus != "" && this.landstatus != "" ) {
-    //     this.getAllDataTogether();
-    // }else if(this.launchStatus == "" && this.landstatus != "" ){
-    //     this.getYearAndLandStatusData();
-    // } else if(this.launchStatus != "" && this.landstatus == "" ){
-    //     this.getYearAndLaunchStatusData();
-    // }else if(this.launchStatus == "" && this.landstatus == "" ){
-    //   this.router.navigate([""], {
-    //     queryParams: { limit: 100, year: this.year },
-    //   });
-    //   this.spacesXService.getYear(this.year).subscribe((data) => {
-    //     this.launches = data;
-    //   });
-    // } 
-    // this.queryFilters.year="";
-    // this.queryFilters.launchStatus ="";
-    // this.queryFilters.landstatus="";
     this.prepareQueryFilter();
     this.getFilterData();      
   }
+  
   prepareQueryFilter(){
     if(this.year){
-    this.queryFilters.launch_year = this.year;
+      this.queryFilters.launch_year = this.year;
     }
-
     if(this.launchStatus != "" ){
-     this.queryFilters.launch_success = this.launchStatus;
-       
-      }
-      if(this.landstatus != "" ){
-        this.queryFilters.land_success = this.landstatus;  
-      }
-      
+      this.queryFilters.launch_success = this.launchStatus;  
+    }
+    if(this.landstatus != "" ){
+      this.queryFilters.land_success = this.landstatus;  
+    }  
   }
-
-
-
   getFilterData(){
     this.spacesXService
     .getFilterData(this.queryFilters)
@@ -181,72 +118,4 @@ export class AppComponent implements OnInit {
     });
   }
   
-
-  //Getting the launch, land and year data 
-  // getAllDataTogether(){
-  //     this.spacesXService
-  //       .getAll(this.year, this.launchStatus, this.landstatus)
-  //       .subscribe((data) => {
-  //         this.launches = data;
-  //         this.launchesCount = data.length;
-  //         this.router.navigate([""], {
-  //           queryParams: {
-  //             limit: 100,
-  //             launch_status: this.launchStatus,
-  //             land_status: this.landstatus,
-  //             launch_year: this.year,
-  //           },
-  //         });
-  //         return;
-  //       });
-  //     }
-      //Getting the data for launch and land
-      // checkLaunchLandStatus(){
-      //   this.spacesXService
-      //   .getLaunchLand(this.launchStatus, this.landstatus)
-      //   .subscribe((data) => {
-      //     this.launches = data;
-      //     this.launchesCount = data.length;
-      //     this.router.navigate([""], {
-      //       queryParams: {
-      //         limit: 100,
-      //         launch_status: this.launchStatus,
-      //         land_status: this.landstatus,
-      //       },
-      //     });
-      //   });
-      // }  
-
-      //Getting the data for year and land 
-      // getYearAndLandStatusData(){
-      //   this.spacesXService
-      //   .getYearAndLandStatus(this.year, this.landstatus)
-      //   .subscribe((data) => {
-      //     this.launches = data;
-      //     this.launchesCount = data.length;
-      //     this.router.navigate([""], {
-      //       queryParams: {
-      //         limit: 100,
-      //         launch_year: this.year,
-      //         land_status: this.landstatus,
-      //       },
-      //     });
-      //   });
-      // }  
-      //Getting the data for year and launch
-      // getYearAndLaunchStatusData(){
-      //   this.spacesXService
-      //   .getYearAndLaunchStatus(this.year, this.launchStatus)
-      //   .subscribe((data) => {
-      //     this.launches = data;
-      //     this.launchesCount = data.length;
-      //     this.router.navigate([""], {
-      //       queryParams: {
-      //         limit: 100,
-      //         launch_year: this.year,
-      //         launch_status: this.launchStatus,
-      //       },
-      //     });
-      //   });
-      // }
 }

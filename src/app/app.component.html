@@ -24,13 +24,13 @@
     <br />
     <div class="launch-land-button">
       <button 
-      [ngClass]="clickFilterLaunch ==='trueClicked'?'background-green-launch':'background-green'"  
+      [ngClass]="clickFilterLaunch ==='true'?'background-green-launch':'background-green'"  
         (click)="filterLaunch($event)"
         value="true"
         name="true"
         tabindex="0"
         >True</button>
-      <button  [ngClass]="clickFilterLaunch ==='falseClicked'?'background-green-launch':'background-green'" 
+      <button  [ngClass]="clickFilterLaunch ==='false'?'background-green-launch':'background-green'" 
        (click)="filterLaunch($event)" tabindex="0"
          name = "false"
         >False</button>
@@ -41,9 +41,9 @@
     <hr class="horizontal-line" />
     <br />
     <div class="launch-land-button">
-      <button [ngClass]="ClickFilterLand === 'trueClicked' ?'background-green-land':'background-green'" name="true" (click)="filter_land($event)" tabindex="0"
+      <button [ngClass]="clickFilterLand === 'true' ?'background-green-land':'background-green'" name="true" (click)="filter_land($event)" tabindex="0"
         >True</button>
-      <button [ngClass]="ClickFilterLand === 'falseClicked' ?'background-green-land':'background-green'" name="false"  (click)="filter_land($event)" tabindex="0"
+      <button [ngClass]="clickFilterLand === 'false' ?'background-green-land':'background-green'" name="false"  (click)="filter_land($event)" tabindex="0"
         >False</button>
     </div>
   </div>
