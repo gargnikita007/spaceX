@@ -18,7 +18,16 @@ export class AppComponent implements OnInit {
   launchesCount = 0;
   launchStatus: string = "";
   landstatus: string = "";
-  year: string = "";
+  year: any = "";
+  clickFilterYear: string = "";
+  clickFilterLand: string = "";
+  clickFilterLaunch: string ="" ;
+  queryFilters= {
+    land_success: "",
+    launch_success: "",
+    launch_year:""
+  }
+ 
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -44,14 +53,12 @@ export class AppComponent implements OnInit {
     this.spacesXService.getAllLaunches().subscribe((data) => {
       this.launches = data;
       this.launchesCount = data.length;
-
       for (let i = 0; i < this.launches.length; i++) {
         this.launchYear[i] = this.launches[i].launch_year;
       }
       this.launchYear.sort((a: any, b: any) => {
         return a - b;
       });
-
       for (let i = 0, j = 1; i < this.launchYear.length; i++, j++) {
         if (this.launchYear[i] != this.launchYear[j]) {
           this.uniqueLaunchYear[this.index] = this.launchYear[i];
@@ -63,70 +70,52 @@ export class AppComponent implements OnInit {
 
   filterLaunch(event: any) {
     this.launchStatus = event.target.textContent.toLowerCase();
-    this.router.navigate([""], {
-      queryParams: { limit: 100, launch_status: this.launchStatus },
-    });
-    this.spacesXService.getLaunches(this.launchStatus).subscribe((data) => {
-      this.launches = data;
-      this.launchesCount = data.length;
-    });
+    this.clickFilterLaunch = this.launchStatus;
+    this.prepareQueryFilter();
+    this.getFilterData(); 
   }
 
   filter_land(event: any) {
     this.landstatus = event.target.textContent.toLowerCase();
+    this.clickFilterLand= this.landstatus;
+    this.prepareQueryFilter();
+    this.getFilterData();  
+  }
 
-    if (this.launchStatus != "" && this.landstatus != "" && this.year == "") {
-      this.spacesXService
-        .getLaunchLand(this.launchStatus, this.landstatus)
-        .subscribe((data) => {
-          this.launches = data;
-          this.launchesCount = data.length;
-          this.router.navigate([""], {
-            queryParams: {
-              limit: 100,
-              launch_status: this.launchStatus,
-              land_status: this.landstatus,
-            },
-          });
-        });
-    } else if (
-      this.launchStatus != "" &&
-      this.landstatus != "" &&
-      this.year != ""
-    ) {
-      this.spacesXService
-        .getAll(this.year, this.launchStatus, this.landstatus)
-        .subscribe((data) => {
-          this.launches = data;
-          this.launchesCount = data.length;
-          this.router.navigate([""], {
-            queryParams: {
-              limit: 100,
-              launch_status: this.launchStatus,
-              land_status: this.landstatus,
-              launch_year: this.year,
-            },
-          });
-          return;
-        });
-    } else {
-      this.spacesXService
-        .getLaunches_Land(this.landstatus)
-        .subscribe((data) => {
-          this.launches = data;
-          this.launchesCount = data.length;
-          return;
-        });
-    }
-  }
-  //to get the data acording to the filter chosen
+  //To get the data acording to the filter chosen
   filterYear(year: any) {
+    this.clickFilterYear=year;
     this.year = year;
-    this.router.navigate([""], {
-      queryParams: { limit: 100, year: this.year },
-    });
-    this.spacesXService.getYear(this.year).subscribe((data) => {
+    this.prepareQueryFilter();
+    this.getFilterData();      
+  }
+  
+  prepareQueryFilter(){
+    if(this.year){
+      this.queryFilters.launch_year = this.year;
+    }
+    if(this.launchStatus != "" ){
+      this.queryFilters.launch_success = this.launchStatus;  
+    }
+    if(this.landstatus != "" ){
+      this.queryFilters.land_success = this.landstatus;  
+    }  
+  }
+  getFilterData(){
+    this.spacesXService
+    .getFilterData(this.queryFilters)
+    .subscribe((data) => {
       this.launches = data;
+      this.launchesCount = data.length;
+      this.router.navigate([""], {
+        queryParams: {
+          limit: 100,
+          queryFilters: this.queryFilters
+          
+        },
+      });
+      return;
     });
   }
+  
 }

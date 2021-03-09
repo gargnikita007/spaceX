@@ -59,11 +59,34 @@
   padding: 10px 25px;
   margin: 5px;
 }
-
-.background-green:focus {
-  background-color: green !important;
+.background-green-focus {
+  background-color: darkgreen;
+  border-radius: 4px;
+  padding: 10px;
+  padding: 10px 25px;
+  margin: 5px;
 }
-
+.background-green-land {
+  background-color: darkgreen;
+  border-radius: 4px;
+  padding: 10px;
+  padding: 10px 25px;
+  margin: 5px;
+}
+.background-green-launch {
+  background-color: darkgreen;
+  border-radius: 4px;
+  padding: 10px;
+  padding: 10px 25px;
+  margin: 5px;
+}
+.background-green-launch {
+  background-color: darkgreen;
+  border-radius: 4px;
+  padding: 10px;
+  padding: 10px 25px;
+  margin: 5px;
+}
 .footer-line {
   padding: 30px;
   text-align: center;
@@ -85,7 +108,7 @@
   color: #1e90ff;
 }
 .shift-letter {
-  margin-left: 30%;
+  margin-left: 20%;
   color: #483d8b;
 }
 .mission-name {
@@ -95,6 +118,10 @@
   text-align: center;
   margin: 0;
   margin-top: 35px;
+}
+.launch-year {
+  text-align: center;
+  margin: 0;
 }
 /***** Mobile View *****/
 @media only screen and (max-width: 700px) {
